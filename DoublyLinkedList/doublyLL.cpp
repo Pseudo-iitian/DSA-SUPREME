@@ -17,6 +17,9 @@ class Node{
         this->next = NULL;
         this->prev = NULL;
     }
+    ~Node(){
+        cout<<"node with data = "<<this->data<<" is now deleted"<<endl;
+    }
 };
 
 
@@ -113,6 +116,54 @@ void deleteAtBegin(Node* &head,Node* tail){
     temp->next = NULL;
     delete temp;
 }
+
+void deleteAtLast(Node* &head,Node* &tail){
+    if(head==NULL){
+        cout<<"Linked list is empty, we can not delete the node"<<endl;
+        return;  
+    }
+    Node* temp = tail;
+    tail = tail->prev;
+    tail->next=NULL;
+    temp->prev=NULL;
+    delete temp;
+}
+
+void deleteAtPosition(Node* &head,Node* &tail,int position){
+    if(head==NULL){
+        cout<<"Linked list is empty, we can not delete the node"<<endl;
+        return;  
+    }
+    if(head->next==NULL){
+        Node* temp = head;
+        head = NULL;
+        tail = NULL;
+        delete temp;
+        return;
+    }
+    if(position==1){
+        deleteAtBegin(head,tail);
+        return;
+    }
+    int len = findLength(head);
+    if(position==len){
+        deleteAtLast(head,tail);
+        return;
+    }
+    int i=1;
+    Node* prevNode = head;
+    while(i<position-1){
+        prevNode= prevNode->next;
+        i++;
+    }
+    Node* curr = prevNode->next;
+    Node* right = curr->next;
+    prevNode->next = right;
+    curr->next=NULL;
+    right->prev=prevNode;
+    curr->prev=NULL;
+    delete curr;
+}
 int main(){
     Node* head = NULL;
     Node* tail = NULL;
@@ -133,11 +184,14 @@ int main(){
     insertAtHead(head,tail,10);
     insertAtHead(head,tail,20);
     insertAtHead(head,tail,30);
-    insertAtHead(head,tail,101);
-    insertAtTail(head,tail,40);
-    insertAtPosition(head,tail,6,20);
-    insertAtPosition(head,tail,1,1000);
-    deleteAtBegin(head,tail);
+    // insertAtHead(head,tail,101);
+    // insertAtTail(head,tail,40);
+    // insertAtPosition(head,tail,6,20);
+    // insertAtPosition(head,tail,1,1000);
+    // deleteAtBegin(head,tail);
+    // deleteAtBegin(head,tail);
+    // deleteAtLast(head,tail);
+    deleteAtPosition(head,tail,3);
     print(head);
     return 0;
 }

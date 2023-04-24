@@ -28,12 +28,27 @@ void print(ListNode* head){
         head = head->next;
     }
 }
+
+ListNode* removeElements(ListNode* &head,int val){
+    if(head==NULL) return head;
+    ListNode* temp = head;
+    while(temp->next!=NULL){
+        if(temp->next->data==val){
+            temp->next=temp->next->next;
+        }
+        else temp=temp->next;
+    }
+    if(head->data==val){
+        head =head->next;
+    }
+    return head;
+}
 int main(){
 
     ListNode* head = NULL;
     ListNode* tail = NULL;
     int val = 6;
-    insertAtLast(head, tail ,1);
+    // insertAtLast(head, tail ,6);
     insertAtLast(head, tail ,2);
     insertAtLast(head, tail ,6);
     insertAtLast(head, tail ,3);
@@ -41,6 +56,7 @@ int main(){
     insertAtLast(head, tail ,5);
     insertAtLast(head, tail ,6);
 
-    print(head);
+    ListNode* newHead = removeElements(head,val);
+    print(newHead);
     return 0;
 }
