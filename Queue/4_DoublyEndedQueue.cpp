@@ -85,6 +85,7 @@ class Deque{
             }
             // circular nature and normal form both at one time
             else if(rear == 0){
+                arr[rear]=0;
                 rear = size-1;
             }
             else{
@@ -105,14 +106,32 @@ class Deque{
             if(front==-1 && rear ==-1) return true;
             return false;
         }
+        void display(){
+            for(int i=0;i<size;++i){
+                cout<<arr[i]<<" ";
+            }
+            cout<<endl;
+        }
 };
 int main(){
-    Deque dq(3);
-    dq.pushRear(3);
-    dq.pushRear(4);
-    dq.pushRear(2);
+    Deque dq(10);
+    dq.pushRear(10);
+    dq.pushRear(20);
+    dq.pushRear(30);
+    dq.pushRear(40);
+    dq.pushRear(50);
+    dq.display();
     dq.popFront();
-    dq.pushFront(3);
+    dq.display();
+    dq.pushFront(10);
+    dq.display();
+
+    dq.pushRear(60);
+    dq.display();
+
     dq.popRear();
+    dq.display();
+    dq.pushFront(103);
+    dq.display();
     return 0;
 }
